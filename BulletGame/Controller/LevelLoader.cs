@@ -10,16 +10,22 @@ namespace BulletGame.Controller
 {
     public static class LevelLoader
     {
+
         public static LevelData LoadLevel(int levelNumber)
         {
-            string filePath = $"../../../Content/Levels/level{levelNumber}.json";
 
-            var b = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Content",
+                "Levels",
+                $"level{levelNumber}.json"
+            );
+
 
             if (!File.Exists(filePath))
                 return CreateDefaultLevel(levelNumber);
 
-            try
+           try
             {
                 string json = File.ReadAllText(filePath);
                 return JsonSerializer.Deserialize<LevelData>(json, new JsonSerializerOptions
